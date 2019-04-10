@@ -1,6 +1,6 @@
 spark-hadoop-worker-expected-from-site-level-config:
-    spark_hadoop_worker_default_var_fs_default_name: *spark_hadoop_worker_runtime_variable_spark_hadoop_master_fqdn
-    spark_hadoop_worker_default_var_yarn_resource_manager_hostname: *spark_hadoop_worker_runtime_variable_spark_hadoop_master_fqdn
+    spark_hadoop_worker_default_var_fs_default_name: *spark_hadoop_worker_runtime_var_spark_hadoop_master_fqdn
+    spark_hadoop_worker_default_var_yarn_resource_manager_hostname: *spark_hadoop_worker_runtime_var_spark_hadoop_master_fqdn
     spark_hadoop_worker_default_var_hdfs_dfs_replication: 1
     spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 512
     spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 256
