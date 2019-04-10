@@ -1,0 +1,14 @@
+#General Component Desciption
+component : "spark-hadoop-master"
+type: spark_hadoop_worker
+version : 1.0.0
+docker_hub_tag : ""
+site_level_config_version: 1.0
+default_var_prefix: spark_hadoop_worker_default_var
+docker_run_parameters:
+  hostname: container_fqdn
+  privileged: true
+  detached: true
+  tty: true
+  ssh_server: true
+  ssh_client: true
