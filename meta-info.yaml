@@ -1,5 +1,5 @@
 #General Component Desciption
-component : "spark-hadoop-master"
+component : "spark-hadoop-worker"
 type: spark_hadoop_worker
 version : 1.0.0
 docker_hub_tag : ""
@@ -10,5 +10,4 @@ docker_run_parameters:
   privileged: true
   detached: true
   tty: true
-  ssh_server: true
   ssh_client: true
