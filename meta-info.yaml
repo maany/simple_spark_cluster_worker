@@ -5,6 +5,8 @@ version : 1.0.0
 docker_hub_tag : ""
 site_level_config_version: 1.0
 default_var_prefix: spark_hadoop_worker_default_var
+runtime_vars:
+  - spark_hadoop_worker_runtime_variable_spark_hadoop_master_fqdn
 docker_run_parameters:
   hostname: container_fqdn
   privileged: true
