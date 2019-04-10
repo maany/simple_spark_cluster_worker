@@ -4,7 +4,7 @@ expected-from-site-level-config:
   yarn_app_mapreduce_am_resource_mb: { type: int(), required: true, use_default: true }
   mapreduce_map_memory_mb: { type: int(), required: true, use_default: true }
   mapreduce_reduce_memory_mb: { type: int(), required: true, use_default: true }
-  yarn_resource_manager_hostname: { type: str(), required: true, use_default: false }
+  yarn_resource_manager_hostname: { type: str(), required: true, use_default: true }
   yarn_nodemanager_resource_memory_mb: { type: int(), required: true, use_default: true}
   yarn_scheduler_maximum_allocation_mb: { type: int(), required: true, use_default: true}
   yarn_scheduler_minimum_allocation_mb: { type: int(), required: true, use_default: true}
