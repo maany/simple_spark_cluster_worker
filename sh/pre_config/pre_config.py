@@ -164,6 +164,34 @@ def get_yarn_site_xml_content(data, execution_id):
     output = generate_xml(properties)
     return output
 
+
+def get_hadoop_env_sh_file_content():
+    env = ["export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-2.el7_6.x86_64/jre"]
+    return '\n'.join(env)
+
+
+def get_hadoop_env_file_content():
+    env = ["JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-2.el7_6.x86_64/jre",
+           "PATH=/root/hadoop/spark/bin:/root/hadoop/bin:/root/hadoop/sbin:/usr/sue/sbin:/usr/sue/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+           "HADOOP_CONF_DIR=/root/hadoop/etc/hadoop", "SPARK_HOME=/root/hadoop/spark",
+           "LD_LIBRARY_PATH=/root/hadoop/lib/native:$LD_LIBRARY_PATH"]
+    return '\n'.join(env)
+
+
+def get_slaves_file_content(data):
+    slaves_execution_id = []
+    slaves = []
+    for lightweight_component in data['lightweight_components']:
+        if lightweight_component['type'] == "spark_hadoop_worker":
+            slaves_execution_id.append(lightweight_component['execution_id'])
+
+    for execution_id in slaves_execution_id:
+        for dns_info in data['dns']:
+            if dns_info['execution_id'] == execution_id:
+                slaves.append(dns_info['container_fqdn'])
+    return '\n'.join(slaves)
+
+
 if __name__ == "__main__":
     args = parse_args()
     execution_id = args['execution_id']
@@ -174,11 +202,20 @@ if __name__ == "__main__":
     with open("{output_dir}/core-site.xml".format(output_dir=output_dir), 'w') as core_site:
         core_site.write(get_core_site_xml_content(data, execution_id))
 
-    with open("{output_dir}/hdfs-site.xml".format(output_dir=output_dir), 'w') as core_site:
-        core_site.write(get_hdfs_site_xml_content(data, execution_id))
+    with open("{output_dir}/hdfs-site.xml".format(output_dir=output_dir), 'w') as hdfs_site:
+        hdfs_site.write(get_hdfs_site_xml_content(data, execution_id))
 
-    with open("{output_dir}/mapred-site.xml".format(output_dir=output_dir), 'w') as core_site:
-        core_site.write(get_mapred_site_xml_content(data, execution_id))
+    with open("{output_dir}/mapred-site.xml".format(output_dir=output_dir), 'w') as mapred_site:
+        mapred_site.write(get_mapred_site_xml_content(data, execution_id))
 
-    with open("{output_dir}/yarn-site.xml".format(output_dir=output_dir), 'w') as core_site:
-        core_site.write(get_yarn_site_xml_content(data, execution_id))
+    with open("{output_dir}/yarn-site.xml".format(output_dir=output_dir), 'w') as yarn_site:
+        yarn_site.write(get_yarn_site_xml_content(data, execution_id))
+
+    with open("{output_dir}/hadoop-env.sh".format(output_dir=output_dir), 'w') as hadoop_env:
+        hadoop_env.write(get_hadoop_env_sh_file_content())
+
+    with open("{output_dir}/hadoop.env".format(output_dir=output_dir), 'w') as hadoop_env:
+        hadoop_env.write(get_hadoop_env_file_content())
+
+    with open("{output_dir}/slaves".format(output_dir=output_dir), 'w') as slaves:
+        slaves.write(get_slaves_file_content(data))
