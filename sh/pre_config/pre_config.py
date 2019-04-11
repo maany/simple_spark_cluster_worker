@@ -60,6 +60,38 @@ def get_core_site_xml_content(data, execution_id):
     return output
 
 
+def get_hdfs_site_xml_content(data, execution_id):
+    current_lightweight_component = get_current_lightweight_component(data, execution_id)
+    config = current_lightweight_component['config']
+    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
+    root = "configuration"
+    properties = []
+
+    dfs_namenode_name_dir_property = {
+        "name": "dfs.namenode.name.dir",
+        "value": "/root/data/nameNode"
+    }
+
+    dfs_datanode_data_dir = {
+        "name": "dfs.datanode.data.dir",
+        "value": "/root/data/dataNode"
+    }
+
+    dfs_replication_property = {
+        "name": "dfs.replication",
+        "value": config['hdfs_dfs_replication']
+    }
+    properties.extend([dfs_datanode_data_dir, dfs_namenode_name_dir_property, dfs_replication_property])
+    xml_content = []
+    for property in properties:
+        xml_content.append({
+            "property": property
+        })
+    output = generate_xml(xml_content, root, xml_headers)
+    return output
+
+
+
 if __name__ == "__main__":
     args = parse_args()
     execution_id = args['execution_id']
@@ -69,3 +101,5 @@ if __name__ == "__main__":
     output_dir = args['output_dir']
     with open("{output_dir}/core-site.xml".format(output_dir=output_dir), 'w') as core_site:
         core_site.write(get_core_site_xml_content(data, execution_id))
+    with open("{output_dir}/hdfs-site.xml".format(output_dir=output_dir), 'w') as core_site:
+        core_site.write(get_hdfs_site_xml_content(data, execution_id))
