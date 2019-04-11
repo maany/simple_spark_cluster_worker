@@ -184,7 +184,7 @@ lightweight_components:
   type: spark-hadoop-worker
   container_count: 1
   id: 1
-  execution_id: 0
+  execution_id: 1
 global_variables:
 - 188.184.104.25
 - simple-lc01.cern.ch

@@ -40,12 +40,15 @@ def generate_xml(data, root, xml_headers):
 
 
 def get_core_site_xml_content(data, execution_id):
+    current_lightweight_component = get_current_lightweight_component(data, execution_id)
+    config = current_lightweight_component['config']
     xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
     root = "configuration"
     properties = []
+
     fs_default_name_property = {
             "name": "fs.default.name",
-            "value": "some_value_to_be_replaced"
+            "value": "hdfs://{fs_default_name}:9000".format(fs_default_name=config['fs_default_name'])
         }
     properties.append(fs_default_name_property)
     xml_content = []
