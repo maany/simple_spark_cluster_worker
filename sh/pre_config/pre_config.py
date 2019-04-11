@@ -51,8 +51,6 @@ def generate_xml(properties, root="configuration", xml_headers=None):
 def get_core_site_xml_content(data, execution_id):
     current_lightweight_component = get_current_lightweight_component(data, execution_id)
     config = current_lightweight_component['config']
-    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
-    root = "configuration"
     properties = []
 
     fs_default_name_property = {
@@ -67,8 +65,6 @@ def get_core_site_xml_content(data, execution_id):
 def get_hdfs_site_xml_content(data, execution_id):
     current_lightweight_component = get_current_lightweight_component(data, execution_id)
     config = current_lightweight_component['config']
-    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
-    root = "configuration"
     properties = []
 
     dfs_namenode_name_dir_property = {
@@ -93,8 +89,6 @@ def get_hdfs_site_xml_content(data, execution_id):
 def get_mapred_site_xml_content(data, execution_id):
     current_lightweight_component = get_current_lightweight_component(data, execution_id)
     config = current_lightweight_component['config']
-    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
-    root= "configuration"
     properties = []
 
     mapreduce_framework_name = {
@@ -117,9 +111,58 @@ def get_mapred_site_xml_content(data, execution_id):
         "value": config["mapreduce_reduce_memory_mb"]
     }
     properties.extend([mapreduce_framework_name, yarn_app_mapreduce_am_resource_mb, mapreduce_map_memory_mb, mapreduce_reduce_memory_mb])
-    output = generate_xml(properties, root, xml_headers)
+    output = generate_xml(properties)
     return output
 
+
+def get_yarn_site_xml_content(data, execution_id):
+    current_lightweight_component = get_current_lightweight_component(data, execution_id)
+    config = current_lightweight_component['config']
+    properties = []
+
+    yarn_acl_enable = {
+        "name": "yarn.acl.enable",
+        "value": 0
+    }
+
+    yarn_resourcemanager_hostname = {
+        "name": "yarn.resourcemanager.hostname",
+        "value": config['yarn_resource_manager_hostname']
+    }
+
+    yarn_nodemanager_aux_services = {
+        "name": "yarn.nodemanager.aux-service",
+        "value": "mapreduce_shuffle"
+    }
+
+    yarn_nodemanager_resource_memory_mb = {
+        "name": "yarn.nodemanager.resource.memory-mb",
+        "value": config['yarn_nodemanager_resource_memory_mb']
+    }
+
+    yarn_scheduler_maximum_allocation_mb = {
+        "name": "yarn.scheduler.maximum-allocation-mb",
+        "value": config["yarn_scheduler_maximum_allocation_mb"]
+    }
+
+    yarn_scheduler_minimum_allocation_mb = {
+        "name": "yarn.scheduler.minimum-allocation-mb",
+        "value": config["yarn_scheduler_minimum_allocation_mb"]
+    }
+
+    yarn_nodemanager_vmem_check_enabled = {
+        "name": "yarn.nodemanager.vmem-check-enabled",
+        "value": "false"
+    }
+    properties.extend([yarn_acl_enable,
+                       yarn_resourcemanager_hostname,
+                       yarn_nodemanager_aux_services,
+                       yarn_nodemanager_resource_memory_mb,
+                       yarn_scheduler_maximum_allocation_mb,
+                       yarn_scheduler_minimum_allocation_mb,
+                       yarn_nodemanager_vmem_check_enabled])
+    output = generate_xml(properties)
+    return output
 
 if __name__ == "__main__":
     args = parse_args()
@@ -136,3 +179,6 @@ if __name__ == "__main__":
 
     with open("{output_dir}/mapred-site.xml".format(output_dir=output_dir), 'w') as core_site:
         core_site.write(get_mapred_site_xml_content(data, execution_id))
+
+    with open("{output_dir}/yarn-site.xml".format(output_dir=output_dir), 'w') as core_site:
+        core_site.write(get_yarn_site_xml_content(data, execution_id))
