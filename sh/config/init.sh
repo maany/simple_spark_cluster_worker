@@ -1,12 +1,14 @@
 #!/bin/bash
 echo "Copy Hadoop conf files to /root/hadoop/etc/hadoop/"
-cp /etc/simple_grid/conf/hadoop-env.sh /root/hadoop/etc/hadoop/
-cp /etc/simple_grid/conf/core-site.xml /root/hadoop/etc/hadoop/
-cp /etc/simple_grid/conf/hdfs-site.xml /root/hadoop/etc/hadoop/
-cp /etc/simple_grid/conf/mapred-site.xml /root/hadoop/etc/hadoop/
-cp -f /etc/simple_grid/conf/yarn-site.xml /root/hadoop/etc/hadoop/
-cp -f /etc/simple_grid/conf/slaves /root/hadoop/etc/hadoop/
+cp /etc/simple_grid/config/hadoop-env.sh /root/hadoop/etc/hadoop/
+cp /etc/simple_grid/config/core-site.xml /root/hadoop/etc/hadoop/
+cp /etc/simple_grid/config/hdfs-site.xml /root/hadoop/etc/hadoop/
+cp /etc/simple_grid/config/mapred-site.xml /root/hadoop/etc/hadoop/
+cp -f /etc/simple_grid/config/yarn-site.xml /root/hadoop/etc/hadoop/
+cp -f /etc/simple_grid/config/slaves /root/hadoop/etc/hadoop/
+cp -f /etc/simple_grid/config/authorized_keys ~/.ssh/authorized_keys
 cat hadoop.env >> ~/.bashrc
 cat hadoop-env.sh >> ~/.bashrc
+
 echo "All Done!"
 
