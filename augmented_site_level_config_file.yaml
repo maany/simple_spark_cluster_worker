@@ -1,0 +1,195 @@
+spark_hadoop_worker_runtime_variables:
+- simple-lc01.cern.ch
+default_group_opssgm:
+  gid: 46001
+  name: opssgm
+default_pool_accounts_alicesgm:
+  base_name: sgmali
+  initial_uid: 60101
+  users_num: 10
+  primary_group:
+    gid: 1397
+    name: alicesgm
+  secondary_groups:
+  - gid: 1395
+    name: alice
+default_group_ops_name: ops
+default_pool_accounts_alice:
+  base_name: alice
+  initial_uid: 10417
+  users_num: 5
+  primary_group:
+    gid: 1395
+    name: alice
+  secondary_groups: []
+default_group_dteamsgm:
+  gid: 2680
+  name: dteamsgm
+preferred_tech_stack:
+  level_1_configuration: puppet
+  level_2_configuration: sh
+  container_orchestration: docker-swarm
+  container: docker
+default_pool_accounts_dteam:
+  base_name: dteam
+  initial_uid: 18118
+  users_num: 10
+  primary_group:
+    gid: 2688
+    name: dteam
+  secondary_groups: []
+default_vo_dteam:
+  name: dteam
+  servers:
+  - server: voms2.cern.ch
+    port: '15001'
+    dn: /DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  - server: lcg-voms2.cern.ch
+    port: '15001'
+    dn: /DC=ch/DC=cern/OU=computers/CN=lcg-voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  default_se: not_used.some-domain
+  sw_dir: .
+  storage_dir: /storage/dteam
+default_group_ops:
+  gid: 45000
+  name: ops
+default_group_alicesgm_name: alicesgm
+spark-hadoop-worker-expected-from-site-level-config:
+  spark_hadoop_worker_default_var_fs_default_name: simple-lc01.cern.ch
+  spark_hadoop_worker_default_var_yarn_resource_manager_hostname: simple-lc01.cern.ch
+  spark_hadoop_worker_default_var_hdfs_dfs_replication: 1
+  spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 512
+  spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 256
+  spark_hadoop_worker_default_var_mapreduce_reduce_memory_mb: 256
+  spark_hadoop_worker_default_var_yarn_nodemanager_resource_memory_mb: 1536
+  spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 1536
+  spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 128
+site_infrastructure:
+- fqdn: simple-lc01.cern.ch
+  ip_address: 188.184.104.25
+- fqdn: simple-lc02.cern.ch
+  ip_address: 188.184.30.19
+- fqdn: simple-lc03.cern.ch
+  ip_address: 188.185.84.189
+default_pool_accounts_dteamsgm:
+  base_name: sgmdtm
+  initial_uid: 60501
+  users_num: 5
+  primary_group:
+    gid: 2680
+    name: dteamsgm
+  secondary_groups:
+  - gid: 2688
+    name: dteam
+default_group_alice_name: alice
+default_vo_generic_dn_ca_cern: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+default_group_alicesgm:
+  gid: 1397
+  name: alicesgm
+default_vo_alice:
+  name: alice
+  servers:
+  - server: voms2.cern.ch
+    port: '15000'
+    dn: /DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  - server: lcg-voms2.cern.ch
+    port: '15000'
+    dn: /DC=ch/DC=cern/OU=computers/CN=lcg-voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  default_se: not_used.some-domain
+  sw_dir: .
+  storage_dir: /not/used
+default_vo_generic_server_primary: voms2.cern.ch
+default_vo_ops:
+  name: ops
+  servers:
+  - server: voms2.cern.ch
+    port: '15009'
+    dn: /DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  - server: lcg-voms2.cern.ch
+    port: '15009'
+    dn: /DC=ch/DC=cern/OU=computers/CN=lcg-voms2.cern.ch
+    ca_dn: /DC=ch/DC=cern/CN=CERN Grid Certification Authority
+  default_se: not_used.some-domain
+  sw_dir: .
+  storage_dir: /storage/ops
+default_group_dteam:
+  gid: 2688
+  name: dteam
+default_vo_generic_dn_server_secondary: /DC=ch/DC=cern/OU=computers/CN=lcg-voms2.cern.ch
+meta_info_spark-hadoop-worker:
+  component: spark-hadoop-worker
+  type: spark_hadoop_worker
+  version: 1.0.0
+  docker_hub_tag: ''
+  site_level_config_version: 1.0
+  default_var_prefix: spark_hadoop_worker_default_var
+  runtime_vars:
+  - spark_hadoop_worker_runtime_var_spark_hadoop_master_fqdn
+  docker_run_parameters:
+    hostname: container_fqdn
+    privileged: true
+    detached: true
+    tty: true
+    ssh_client: true
+default_pool_account_ops:
+  base_name: ops
+  initial_uid: 45001
+  users_num: 10
+  primary_group:
+    gid: 45000
+    name: ops
+  secondary_groups: []
+default_pool_account_opssgm:
+  base_name: sgmops
+  initial_uid: 60701
+  users_num: 10
+  primary_group:
+    gid: 45000
+    name: ops
+  secondary_groups:
+  - gid: 46001
+    name: opssgm
+default_group_alice:
+  gid: 1395
+  name: alice
+default_group_dteamsgm_name: dteamsgm
+default_group_opssgm_name: opssgm
+default_vo_generic_dn_server_primary: /DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch
+default_vo_generic_server_secondary: lcg-voms2.cern.ch
+lightweight_components:
+- name: spark_hadoop_worker
+  deploy:
+    node: simple-lc02.cern.ch
+    container_count: 1
+  config:
+    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 512
+    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_scheduler_minimum_allocation_mb: 128
+    hdfs_dfs_replication: 1
+    mapreduce_map_memory_mb: 256
+    fs_default_name: simple-lc01.cern.ch
+    yarn_resource_manager_hostname: simple-lc01.cern.ch
+    mapreduce_reduce_memory_mb: 256
+  repository_revision: master
+  supplemental_config:
+    spark-defaults.conf:
+    - spark.driver.cores 1
+  repository_url: https://github.com/maany/simple_spark_cluster_worker
+  type: spark-hadoop-worker
+  container_count: 1
+  id: 1
+  execution_id: 0
+global_variables:
+- 188.184.104.25
+- simple-lc01.cern.ch
+- 188.184.30.19
+- simple-lc02.cern.ch
+- 188.185.84.189
+- simple-lc03.cern.ch
+default_group_dteam_name: dteam
