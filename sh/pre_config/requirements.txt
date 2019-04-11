@@ -1,4 +1,5 @@
 Babel==2.6.0
+dicttoxml==1.7.4
 pbr==4.3.0
 ply==3.11
 python-dateutil==2.7.3
