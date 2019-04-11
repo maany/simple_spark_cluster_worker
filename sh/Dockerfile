@@ -18,8 +18,6 @@ RUN wget https://www-eu.apache.org/dist/spark/spark-2.4.1/spark-2.4.1-bin-hadoop
 # ssh and net-tools
 RUN yum -y install iproute openssh openssh-server openssh-clients openssl-libs net-tools;yum clean all;
 RUN mkdir /root/.ssh && chmod 700 /root/.ssh
-COPY ./data/authorized_keys /root/.ssh/authorized_keys
-RUN chmod 600 /root/.ssh/authorized_keys
 RUN ssh-keygen -A
 
 # Config Hadoop
