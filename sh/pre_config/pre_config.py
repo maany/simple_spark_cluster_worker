@@ -1,6 +1,8 @@
 import argparse
 import yaml
-import yaql
+import dicttoxml
+from xml.dom.minidom import parseString
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -24,6 +26,36 @@ def get_current_lightweight_component(data, execution_id):
     return current_lightweight_component
 
 
+def generate_xml(data, root, xml_headers):
+    xml_headers.insert(0, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+    xml_headers_string = '\n'.join(xml_headers)
+    xml_string = parseString(dicttoxml.dicttoxml(data,
+                                                 custom_root=root,
+                                                 attr_type=False,
+                                                 item_func=lambda x: None).replace('<None>', '').replace('</None>', '')).toprettyxml()
+    xml_content = xml_string.split('\n')
+    xml_string = '\n'.join(xml_content[1:])
+    output = "{xml_headers_string}\n{xml_string}".format(xml_headers_string=xml_headers_string, xml_string=xml_string)
+    return output
+
+
+def get_core_site_xml_content(data, execution_id):
+    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
+    root = "configuration"
+    properties = []
+    fs_default_name_property = {
+            "name": "fs.default.name",
+            "value": "some_value_to_be_replaced"
+        }
+    properties.append(fs_default_name_property)
+    xml_content = []
+    for property in properties:
+        xml_content.append({
+            "property": property
+        })
+    output = generate_xml(xml_content, root, xml_headers)
+    return output
+
 
 if __name__ == "__main__":
     args = parse_args()
@@ -32,10 +64,5 @@ if __name__ == "__main__":
     site_config = open(site_config_filename, 'r')
     data = yaml.load(site_config)
     output_dir = args['output_dir']
-    # spark_default_config_file = open("{output_dir}/spark-defaults.conf".format(output_dir=output_dir), 'w')
-    # spark_default_config_file.write(get_spark_default_config_file_content(data, execution_id))
-    # spark_default_config_file.close()
-
-    # spark_env_file = open("{output_dir}/spark_env.conf".format(output_dir=output_dir), 'w')
-    # spark_env_file.write(get_spark_env_file_content(data, execution_id))
-    # spark_env_file.close()
+    with open("{output_dir}/core-site.xml".format(output_dir=output_dir), 'w') as core_site:
+        core_site.write(get_core_site_xml_content(data, execution_id))
