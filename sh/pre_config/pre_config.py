@@ -26,10 +26,19 @@ def get_current_lightweight_component(data, execution_id):
     return current_lightweight_component
 
 
-def generate_xml(data, root, xml_headers):
-    xml_headers.insert(0, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+def generate_xml(properties, root="configuration", xml_headers=None):
+    if xml_headers is None:
+        xml_headers = [
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+            "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"
+        ]
     xml_headers_string = '\n'.join(xml_headers)
-    xml_string = parseString(dicttoxml.dicttoxml(data,
+    xml_content = []
+    for property in properties:
+        xml_content.append({
+            "property": property
+        })
+    xml_string = parseString(dicttoxml.dicttoxml(xml_content,
                                                  custom_root=root,
                                                  attr_type=False,
                                                  item_func=lambda x: None).replace('<None>', '').replace('</None>', '')).toprettyxml()
@@ -51,12 +60,7 @@ def get_core_site_xml_content(data, execution_id):
             "value": "hdfs://{fs_default_name}:9000".format(fs_default_name=config['fs_default_name'])
         }
     properties.append(fs_default_name_property)
-    xml_content = []
-    for property in properties:
-        xml_content.append({
-            "property": property
-        })
-    output = generate_xml(xml_content, root, xml_headers)
+    output = generate_xml(properties)
     return output
 
 
@@ -82,14 +86,39 @@ def get_hdfs_site_xml_content(data, execution_id):
         "value": config['hdfs_dfs_replication']
     }
     properties.extend([dfs_datanode_data_dir, dfs_namenode_name_dir_property, dfs_replication_property])
-    xml_content = []
-    for property in properties:
-        xml_content.append({
-            "property": property
-        })
-    output = generate_xml(xml_content, root, xml_headers)
+    output = generate_xml(properties)
     return output
 
+
+def get_mapred_site_xml_content(data, execution_id):
+    current_lightweight_component = get_current_lightweight_component(data, execution_id)
+    config = current_lightweight_component['config']
+    xml_headers = ["<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>"]
+    root= "configuration"
+    properties = []
+
+    mapreduce_framework_name = {
+        "name": "mapreduce.framework.name",
+        "value": "yarn"
+    }
+
+    yarn_app_mapreduce_am_resource_mb = {
+        "name": "yarn.app.mapreduce.am.resource.mb",
+        "value": config['yarn_app_mapreduce_am_resource_mb']
+    }
+
+    mapreduce_map_memory_mb = {
+        "name": "mapreduce.map.memory.mb",
+        "value": config['mapreduce_map_memory_mb']
+    }
+
+    mapreduce_reduce_memory_mb = {
+        "name": "mapreduce.reduce.memory.mb",
+        "value": config["mapreduce_reduce_memory_mb"]
+    }
+    properties.extend([mapreduce_framework_name, yarn_app_mapreduce_am_resource_mb, mapreduce_map_memory_mb, mapreduce_reduce_memory_mb])
+    output = generate_xml(properties, root, xml_headers)
+    return output
 
 
 if __name__ == "__main__":
@@ -101,5 +130,9 @@ if __name__ == "__main__":
     output_dir = args['output_dir']
     with open("{output_dir}/core-site.xml".format(output_dir=output_dir), 'w') as core_site:
         core_site.write(get_core_site_xml_content(data, execution_id))
+
     with open("{output_dir}/hdfs-site.xml".format(output_dir=output_dir), 'w') as core_site:
         core_site.write(get_hdfs_site_xml_content(data, execution_id))
+
+    with open("{output_dir}/mapred-site.xml".format(output_dir=output_dir), 'w') as core_site:
+        core_site.write(get_mapred_site_xml_content(data, execution_id))
