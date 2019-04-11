@@ -1,5 +1,7 @@
 #!/bin/bash
-docker stop simple_spark_hadoop_worker && docker rm simple_spark_hadoop_worker
+## PRE_CONFIG EVENT ##
+#docker build -t simple_spark_hadoop_worker ./sh/pre_config/
+#docker stop simple_spark_hadoop_worker && docker rm simple_spark_hadoop_worker
 ### BOOT EVENT ###
 #build image
 sudo docker build -t simple_spark_hadoop_worker sh/
