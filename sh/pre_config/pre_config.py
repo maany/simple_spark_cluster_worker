@@ -192,6 +192,15 @@ def get_slaves_file_content(data):
     return '\n'.join(slaves)
 
 
+# def get_known_hosts_content(data, execution_id):
+#     current_lightweight_component = get_current_lightweight_component(data, execution_id)
+#     config = current_lightweight_component['config']
+#     master = config['fs_default_name']
+#     master_ip = ""
+#     for dns_info in data['dns']:
+#         if dns_info['host_fqdn'] == master:
+#             master_ip['host_ip']
+#     known_hosts_string = "{host_fqdn},{host_ip} "
 if __name__ == "__main__":
     args = parse_args()
     execution_id = args['execution_id']
@@ -219,3 +228,6 @@ if __name__ == "__main__":
 
     with open("{output_dir}/slaves".format(output_dir=output_dir), 'w') as slaves:
         slaves.write(get_slaves_file_content(data))
+
+    # with open("{output_dir}/known_hosts".format(output_dir=output_dir), 'w') as known_hosts:
+    #     slaves.write(get_known_hosts_content(data, execution_id))
