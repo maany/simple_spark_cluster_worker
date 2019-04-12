@@ -1,7 +1,7 @@
 #!/bin/bash
 ## PRE_CONFIG EVENT ##
 #docker build -t simple_spark_hadoop_worker ./sh/pre_config/
-#docker stop simple_spark_hadoop_worker && docker rm simple_spark_hadoop_worker
+docker stop simple_spark_hadoop_worker && docker rm simple_spark_hadoop_worker
 ### BOOT EVENT ###
 #build image
 sudo docker build -t simple_spark_hadoop_worker sh/
@@ -10,6 +10,10 @@ sudo docker run -itd \
     --privileged \
     -v $(pwd)/sh/config:/etc/simple_grid/config \
     -v $(pwd)/augmented_site_level_config_file.yaml:/etc/simple_grid/augmented_site_level_config_file.yaml \
+    --net spark_tests \
+    --ip 10.1.1.11 \
+    --hostname spark_hadoop_worker_localhost01_1.cern.ch \
+    --add-host "simple-lc01.cern.ch:10.1.1.11" \
     simple_spark_hadoop_worker \
 #### PRE INIT HOOKS #####
 
