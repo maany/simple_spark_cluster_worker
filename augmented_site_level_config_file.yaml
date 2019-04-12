@@ -170,7 +170,7 @@ default_group_opssgm_name: opssgm
 default_vo_generic_dn_server_primary: /DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch
 default_vo_generic_server_secondary: lcg-voms2.cern.ch
 lightweight_components:
-- name: spark_hadoop_master
+- name: spark-hadoop-master
   deploy:
     node: simple-lc01.cern.ch
     container_count: 1
@@ -194,11 +194,11 @@ lightweight_components:
     spark-defaults.conf:
     - spark.driver.cores 1
   repository_url: https://github.com/maany/simple_spark_cluster_master
-  type: spark-hadoop-master
+  type: spark_hadoop_master
   container_count: 1
   id: 0
   execution_id: 0
-- name: spark_hadoop_worker
+- name: spark-hadoop-worker
   deploy:
     node: simple-lc02.cern.ch
     container_count: 1
@@ -217,7 +217,7 @@ lightweight_components:
     spark-defaults.conf:
     - spark.driver.cores 1
   repository_url: https://github.com/maany/simple_spark_cluster_worker
-  type: spark-hadoop-worker
+  type: spark_hadoop_worker
   container_count: 1
   id: 1
   execution_id: 1
