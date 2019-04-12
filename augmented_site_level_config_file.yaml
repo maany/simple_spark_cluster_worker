@@ -9,7 +9,7 @@ spark-hadoop-master-expected-from-site-level-config:
   spark_hadoop_master_default_var_yarn_scheduler_maximum_allocation_mb: 1536
   spark_hadoop_master_default_var_yarn_scheduler_minimum_allocation_mb: 128
 spark_hadoop_worker_runtime_variables:
-- mayank-macbook.dyndns.cern.ch
+- simple-lc01.cern.ch
 default_group_opssgm:
   gid: 46001
   name: opssgm
@@ -67,8 +67,8 @@ default_group_ops:
   name: ops
 default_group_alicesgm_name: alicesgm
 spark-hadoop-worker-expected-from-site-level-config:
-  spark_hadoop_worker_default_var_fs_default_name: mayank-macbook.dyndns.cern.ch
-  spark_hadoop_worker_default_var_yarn_resource_manager_hostname: mayank-macbook.dyndns.cern.ch
+  spark_hadoop_worker_default_var_fs_default_name: simple-lc01.cern.ch
+  spark_hadoop_worker_default_var_yarn_resource_manager_hostname: simple-lc01.cern.ch
   spark_hadoop_worker_default_var_hdfs_dfs_replication: 1
   spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 512
   spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 256
@@ -77,10 +77,10 @@ spark-hadoop-worker-expected-from-site-level-config:
   spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 1536
   spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 128
 site_infrastructure:
-- fqdn: mayank-macbook.dyndns.cern.ch
-  ip_address: 0.0.0.0
-- fqdn: mayank-macbook.dyndns.cern.ch
-  ip_address: 0.0.0.0
+- fqdn: simple-lc01.cern.ch
+  ip_address: 188.184.104.25
+- fqdn: simple-lc02.cern.ch
+  ip_address: 188.184.30.19
 default_pool_accounts_dteamsgm:
   base_name: sgmdtm
   initial_uid: 60501
@@ -172,7 +172,7 @@ default_vo_generic_server_secondary: lcg-voms2.cern.ch
 lightweight_components:
 - name: spark_hadoop_master
   deploy:
-    node: mayank-macbook.dyndns.cern.ch
+    node: simple-lc02.cern.ch
     container_count: 1
   config:
     spark_history_fs_log_directory: hdfs://spark-master.cern.ch:9000/spark-logs
@@ -200,7 +200,7 @@ lightweight_components:
   execution_id: 0
 - name: spark_hadoop_worker
   deploy:
-    node: mayank-macbook.dyndns.cern.ch
+    node: simple-lc02.cern.ch
     container_count: 1
   config:
     yarn_scheduler_maximum_allocation_mb: 1536
@@ -209,8 +209,8 @@ lightweight_components:
     yarn_scheduler_minimum_allocation_mb: 128
     hdfs_dfs_replication: 1
     mapreduce_map_memory_mb: 256
-    fs_default_name: mayank-macbook.dyndns.cern.ch
-    yarn_resource_manager_hostname: mayank-macbook.dyndns.cern.ch
+    fs_default_name: simple-lc01.cern.ch
+    yarn_resource_manager_hostname: simple-lc01.cern.ch
     mapreduce_reduce_memory_mb: 256
   repository_revision: master
   supplemental_config:
@@ -222,10 +222,10 @@ lightweight_components:
   id: 1
   execution_id: 1
 global_variables:
-- 0.0.0.0
-- mayank-macbook.dyndns.cern.ch
-- 0.0.0.0
-- mayank-macbook.dyndns.cern.ch
+- 188.184.104.25
+- simple-lc01.cern.ch
+- 188.184.30.19
+- simple-lc02.cern.ch
 meta_info_spark-hadoop-master:
   component: spark-hadoop-master
   type: spark_hadoop_master
@@ -279,6 +279,7 @@ meta_info_spark-hadoop-master:
     ssh_server: true
     ssh_client: true
 default_group_dteam_name: dteam
+
 dns:
 - container_fqdn: simple-lc01.cern.ch
   host_fqdn: simple-lc01.cern.ch
