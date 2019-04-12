@@ -172,10 +172,10 @@ default_vo_generic_server_secondary: lcg-voms2.cern.ch
 lightweight_components:
 - name: spark_hadoop_master
   deploy:
-    node: simple-lc02.cern.ch
+    node: simple-lc01.cern.ch
     container_count: 1
   config:
-    spark_history_fs_log_directory: hdfs://spark-master.cern.ch:9000/spark-logs
+    spark_history_fs_log_directory: hdfs://simple-lc01.cern.ch:9000/spark-logs
     spark_executor_memory: 1g
     yarn_scheduler_maximum_allocation_mb: 1536
     spark_event_log_dir: spark-logs
@@ -279,7 +279,6 @@ meta_info_spark-hadoop-master:
     ssh_server: true
     ssh_client: true
 default_group_dteam_name: dteam
-
 dns:
 - container_fqdn: simple-lc01.cern.ch
   host_fqdn: simple-lc01.cern.ch
