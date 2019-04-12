@@ -1,6 +1,7 @@
 #!/bin/bash
 ## PRE_CONFIG EVENT ##
-#docker build -t simple_spark_hadoop_worker ./sh/pre_config/
+docker build -t simple_spark_cluster_worker_sh_pre_config ./sh/pre_config/
+docker run -it -e "EXECUTION_ID=0" -v $(pwd)/:/component_repository simple_spark_cluster_worker_sh_pre_config bash
 docker stop simple_spark_hadoop_worker && docker rm simple_spark_hadoop_worker
 ### BOOT EVENT ###
 #build image
