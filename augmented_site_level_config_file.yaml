@@ -9,7 +9,7 @@ spark-hadoop-master-expected-from-site-level-config:
   spark_hadoop_master_default_var_yarn_scheduler_maximum_allocation_mb: 1536
   spark_hadoop_master_default_var_yarn_scheduler_minimum_allocation_mb: 128
 spark_hadoop_worker_runtime_variables:
-- simple-lc01.cern.ch
+- simple_spark_cluster_master.cern.ch
 default_group_opssgm:
   gid: 46001
   name: opssgm
@@ -67,8 +67,8 @@ default_group_ops:
   name: ops
 default_group_alicesgm_name: alicesgm
 spark-hadoop-worker-expected-from-site-level-config:
-  spark_hadoop_worker_default_var_fs_default_name: simple-lc01.cern.ch
-  spark_hadoop_worker_default_var_yarn_resource_manager_hostname: simple-lc01.cern.ch
+  spark_hadoop_worker_default_var_fs_default_name: simple_spark_cluster_master.cern.ch
+  spark_hadoop_worker_default_var_yarn_resource_manager_hostname: simple_spark_cluster_master.cern.ch
   spark_hadoop_worker_default_var_hdfs_dfs_replication: 1
   spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 512
   spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 256
@@ -77,10 +77,10 @@ spark-hadoop-worker-expected-from-site-level-config:
   spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 1536
   spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 128
 site_infrastructure:
-- fqdn: simple-lc01.cern.ch
-  ip_address: 188.184.104.25
-- fqdn: simple-lc02.cern.ch
-  ip_address: 188.184.30.19
+- fqdn: simple_spark_cluster_master.cern.ch
+  ip_address: 188.185.104.49
+- fqdn: simple_spark_cluster_worker.cern.ch
+  ip_address: 188.184.85.219
 default_pool_accounts_dteamsgm:
   base_name: sgmdtm
   initial_uid: 60501
@@ -172,7 +172,7 @@ default_vo_generic_server_secondary: lcg-voms2.cern.ch
 lightweight_components:
 - name: spark-hadoop-master
   deploy:
-    node: simple-lc01.cern.ch
+    node: simple_spark_cluster_master.cern.ch
     container_count: 1
   config:
     spark_history_fs_log_directory: hdfs://simple-lc01.cern.ch:9000/spark-logs
@@ -200,7 +200,7 @@ lightweight_components:
   execution_id: 0
 - name: spark-hadoop-worker
   deploy:
-    node: simple-lc02.cern.ch
+    node: simple_spark_cluster_worker.cern.ch
     container_count: 1
   config:
     yarn_scheduler_maximum_allocation_mb: 1536
@@ -209,8 +209,8 @@ lightweight_components:
     yarn_scheduler_minimum_allocation_mb: 128
     hdfs_dfs_replication: 1
     mapreduce_map_memory_mb: 256
-    fs_default_name: simple-lc01.cern.ch
-    yarn_resource_manager_hostname: simple-lc01.cern.ch
+    fs_default_name: simple_spark_cluster_master.cern.ch
+    yarn_resource_manager_hostname: simple_spark_cluster_master.cern.ch
     mapreduce_reduce_memory_mb: 256
   repository_revision: master
   supplemental_config:
@@ -222,10 +222,10 @@ lightweight_components:
   id: 1
   execution_id: 1
 global_variables:
-- 188.184.104.25
-- simple-lc01.cern.ch
-- 188.184.30.19
-- simple-lc02.cern.ch
+- 188.185.104.49
+- simple_spark_cluster_master.cern.ch
+- 188.184.85.219
+- simple_spark_cluster_worker.cern.ch
 meta_info_spark-hadoop-master:
   component: spark-hadoop-master
   type: spark_hadoop_master
@@ -279,16 +279,17 @@ meta_info_spark-hadoop-master:
     ssh_server: true
     ssh_client: true
 default_group_dteam_name: dteam
+
 dns:
-- container_fqdn: simple-lc01.cern.ch
-  host_fqdn: simple-lc01.cern.ch
-  host_ip: 188.184.104.25
+- container_fqdn: simple_spark_cluster_master.cern.ch
+  host_fqdn: simple_spark_cluster_master.cern.ch
+  host_ip: 188.185.104.49
   container_ip: 10.0.0.10
   type: spark_hadoop_master
   execution_id: 0
 - container_fqdn: spark_hadoop_worker_localhost01_1.cern.ch
-  host_fqdn: simple-lc02.cern.ch
-  host_ip: 188.184.30.19
+  host_fqdn: simple_spark_cluster_worker.cern.ch
+  host_ip: 188.184.85.219
   container_ip: 10.0.0.11
   type: spark_hadoop_worker
   execution_id: 1
