@@ -131,7 +131,7 @@ def get_yarn_site_xml_content(data, execution_id):
     }
 
     yarn_nodemanager_aux_services = {
-        "name": "yarn.nodemanager.aux-service",
+        "name": "yarn.nodemanager.aux-services",
         "value": "mapreduce_shuffle"
     }
 
