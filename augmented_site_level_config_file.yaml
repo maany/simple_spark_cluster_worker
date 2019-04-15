@@ -175,7 +175,7 @@ lightweight_components:
     node: spark-hadoop-master.cern.ch
     container_count: 1
   config:
-    spark_history_fs_log_directory: hdfs://spark_hadoop_master.cern.ch:9000/spark-logs
+    spark_history_fs_log_directory: hdfs://spark-hadoop-master.cern.ch:9000/spark-logs
     spark_executor_memory: 1g
     yarn_scheduler_maximum_allocation_mb: 1536
     spark_event_log_dir: spark-logs
