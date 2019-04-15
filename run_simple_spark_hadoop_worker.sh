@@ -14,7 +14,7 @@ sudo docker run -itd \
     --net spark_tests \
     --ip 10.1.1.11 \
     --hostname spark_hadoop_worker_localhost01_1.cern.ch \
-    --add-host "simple-lc01.cern.ch:10.1.1.10" \
+    --add-host "spark-hadoop-master.cern.ch:10.1.1.10" \
     simple_spark_hadoop_worker \
 #### PRE INIT HOOKS #####
 
