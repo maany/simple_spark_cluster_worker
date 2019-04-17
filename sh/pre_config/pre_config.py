@@ -178,7 +178,7 @@ def get_hadoop_env_file_content():
     return '\n'.join(env)
 
 
-def get_slaves_file_content(data, execution_id):
+def get_slaves_file_content(data):
     slaves_execution_id = []
     slaves = []
     for lightweight_component in data['lightweight_components']:
@@ -251,7 +251,7 @@ if __name__ == "__main__":
         slaves.write(get_slaves_file_content(data))
 
     with open("{output_dir}/spark-defaults.conf".format(output_dir=output_dir), 'w') as slaves:
-        slaves.write(get_spark_defaults_conf_content(data))
+        slaves.write(get_spark_defaults_conf_content(data, execution_id))
 
     # with open("{output_dir}/known_hosts".format(output_dir=output_dir), 'w') as known_hosts:
     #     slaves.write(get_known_hosts_content(data, execution_id))

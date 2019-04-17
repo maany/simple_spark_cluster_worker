@@ -76,6 +76,13 @@ spark-hadoop-worker-expected-from-site-level-config:
   spark_hadoop_worker_default_var_yarn_nodemanager_resource_memory_mb: 1536
   spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 1536
   spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 128
+  spark_hadoop_worker_default_var_spark_event_log_enabled: true
+  spark_hadoop_worker_default_var_spark_event_log_dir: spark-logs
+  spark_hadoop_worker_default_var_spark_driver_memory: 512m
+  spark_hadoop_worker_default_var_spark_executor_memory: 512m
+  spark_hadoop_worker_default_var_spark_yarn_am_memory: 512m
+  spark_hadoop_worker_default_var_spark_history_fs_log_directory: spark-logs
+  spark_hadoop_worker_default_var_spark_history_fs_update_interval: 30s
 site_infrastructure:
 - fqdn: spark-hadoop-master.cern.ch
   ip_address: 188.185.104.49
@@ -203,12 +210,19 @@ lightweight_components:
     node: spark-hadoop-worker.cern.ch
     container_count: 1
   config:
+    spark_history_fs_log_directory: spark-logs
+    spark_event_log_enabled: true
+    spark_event_log_dir: spark-logs
     yarn_scheduler_maximum_allocation_mb: 1536
+    spark_driver_memory: 512m
     yarn_app_mapreduce_am_resource_mb: 512
     yarn_nodemanager_resource_memory_mb: 1536
+    spark_yarn_am_memory: 512m
+    spark_history_fs_update_interval: 30s
     yarn_scheduler_minimum_allocation_mb: 128
     hdfs_dfs_replication: 1
     mapreduce_map_memory_mb: 256
+    spark_executor_memory: 512m
     fs_default_name: spark-hadoop-master.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master.cern.ch
     mapreduce_reduce_memory_mb: 256
@@ -279,6 +293,7 @@ meta_info_spark-hadoop-master:
     ssh_server: true
     ssh_client: true
 default_group_dteam_name: dteam
+
 dns:
 - container_fqdn: spark-hadoop-master.cern.ch
   host_fqdn: spark-hadoop-master.cern.ch
