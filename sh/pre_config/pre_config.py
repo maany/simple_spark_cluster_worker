@@ -178,7 +178,7 @@ def get_hadoop_env_file_content():
     return '\n'.join(env)
 
 
-def get_slaves_file_content(data):
+def get_slaves_file_content(data, execution_id):
     slaves_execution_id = []
     slaves = []
     for lightweight_component in data['lightweight_components']:
@@ -192,15 +192,36 @@ def get_slaves_file_content(data):
     return '\n'.join(slaves)
 
 
-# def get_known_hosts_content(data, execution_id):
-#     current_lightweight_component = get_current_lightweight_component(data, execution_id)
-#     config = current_lightweight_component['config']
-#     master = config['fs_default_name']
-#     master_ip = ""
-#     for dns_info in data['dns']:
-#         if dns_info['host_fqdn'] == master:
-#             master_ip['host_ip']
-#     known_hosts_string = "{host_fqdn},{host_ip} "
+def get_spark_defaults_conf_content(data, execution_id):
+    current_lightweight_component = get_current_lightweight_component(data, execution_id)
+    config_section = current_lightweight_component['config']
+    config = []
+    config.append("spark.master {value}".format(value=str("yarn").lower()))
+    spark_event_log_enabled = config_section['spark_event_log_enabled']
+    config.append("spark.event.log.enabled {value}".format(value=str(spark_event_log_enabled).lower()))
+    spark_event_log_dir = config_section['spark_event_log_dir']
+    config.append("spark.event.log.dir {value}".format(value=str(spark_event_log_dir).lower()))
+    spark_driver_memory = config_section['spark_driver_memory']
+    config.append("spark.driver.memory {value}".format(value=str(spark_driver_memory).lower()))
+    spark_yarn_am_memory = config_section['spark_yarn_am_memory']
+    config.append("spark.yarn.am.memory {value}".format(value=str(spark_yarn_am_memory).lower()))
+    spark_executor_memory = config_section['spark_executor_memory']
+    config.append("spark.executor.memory {value}".format(value=str(spark_executor_memory).lower()))
+    config.append(
+        "spark.history.provider {value}".format(value=str("org.apache.spark.deploy.history.FsHistoryProvider")))
+    spark_history_fs_log_directory = config_section['spark_history_fs_log_directory']
+    for dns_info in data['dns']:
+        if dns_info['type'] == 'spark_hadoop_master':
+            hdfs_master=dns_info['container_fqdn']
+            break
+    config.append("spark.history.fs.logDirectory hdfs://{hdfs_master}:9000/{value}".format(hdfs_master=hdfs_master, value=str(spark_history_fs_log_directory).lower()))
+    spark_history_fs_update_interval = config_section['spark_history_fs_update_interval']
+    config.append(
+        "spark.history.fs.update.interval {value}".format(value=str(spark_history_fs_update_interval).lower()))
+    config.append("spark.history.ui.port {value}".format(value=str("18080").lower()))
+    return "\n".join(config)
+
+
 if __name__ == "__main__":
     args = parse_args()
     execution_id = args['execution_id']
@@ -228,6 +249,9 @@ if __name__ == "__main__":
 
     with open("{output_dir}/slaves".format(output_dir=output_dir), 'w') as slaves:
         slaves.write(get_slaves_file_content(data))
+
+    with open("{output_dir}/spark-defaults.conf".format(output_dir=output_dir), 'w') as slaves:
+        slaves.write(get_spark_defaults_conf_content(data))
 
     # with open("{output_dir}/known_hosts".format(output_dir=output_dir), 'w') as known_hosts:
     #     slaves.write(get_known_hosts_content(data, execution_id))

@@ -8,3 +8,10 @@ expected-from-site-level-config:
   yarn_nodemanager_resource_memory_mb: { type: int(), required: true, use_default: true}
   yarn_scheduler_maximum_allocation_mb: { type: int(), required: true, use_default: true}
   yarn_scheduler_minimum_allocation_mb: { type: int(), required: true, use_default: true}
+  spark_event_log_enabled: { type: bool(), required: true, use_default: true}
+  spark_event_log_dir: { type: str(), required: true, use_default: true}
+  spark_driver_memory: { type: str(), required: true, use_default: true}
+  spark_executor_memory: { type: str(), required: true, use_default: true}
+  spark_yarn_am_memory: { type: str(), required: true, use_default: true}
+  spark_history_fs_log_directory: { type: str(), required: true, use_default: true}
+  spark_history_fs_update_interval: { type: str(), required: true, use_default: true}
