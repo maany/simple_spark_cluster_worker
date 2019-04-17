@@ -10,7 +10,8 @@ sudo docker run -itd \
     --name simple_spark_hadoop_worker \
     --privileged \
     -p "8042:8042" \
-    -p "19888:19888"\
+    -p "19888:19888" \
+    -p "42252:42252" \
     -v $(pwd)/sh/config:/etc/simple_grid/config \
     -v $(pwd)/augmented_site_level_config_file.yaml:/etc/simple_grid/augmented_site_level_config_file.yaml \
     --net spark_tests \
