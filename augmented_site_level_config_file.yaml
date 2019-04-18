@@ -60,12 +60,12 @@ spark-hadoop-worker-expected-from-site-level-config:
   spark_hadoop_worker_default_var_fs_default_name: spark-hadoop-master-0.cern.ch
   spark_hadoop_worker_default_var_yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
   spark_hadoop_worker_default_var_hdfs_dfs_replication: 1
-  spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 512
-  spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 256
-  spark_hadoop_worker_default_var_mapreduce_reduce_memory_mb: 256
-  spark_hadoop_worker_default_var_yarn_nodemanager_resource_memory_mb: 1536
-  spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 1536
-  spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 128
+  spark_hadoop_worker_default_var_yarn_app_mapreduce_am_resource_mb: 1024
+  spark_hadoop_worker_default_var_mapreduce_map_memory_mb: 1024
+  spark_hadoop_worker_default_var_mapreduce_reduce_memory_mb: 1024
+  spark_hadoop_worker_default_var_yarn_nodemanager_resource_memory_mb: 3072
+  spark_hadoop_worker_default_var_yarn_scheduler_maximum_allocation_mb: 3072
+  spark_hadoop_worker_default_var_yarn_scheduler_minimum_allocation_mb: 256
   spark_hadoop_worker_default_var_spark_event_log_enabled: true
   spark_hadoop_worker_default_var_spark_event_log_dir: spark-logs
   spark_hadoop_worker_default_var_spark_driver_memory: 1g
@@ -216,19 +216,19 @@ lightweight_components:
     spark_history_fs_log_directory: spark-logs
     spark_event_log_enabled: true
     spark_event_log_dir: spark-logs
-    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_scheduler_maximum_allocation_mb: 3072
     spark_driver_memory: 1g
-    yarn_app_mapreduce_am_resource_mb: 512
-    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 1024
+    yarn_nodemanager_resource_memory_mb: 3072
     spark_yarn_am_memory: 1g
     spark_history_fs_update_interval: 30s
-    yarn_scheduler_minimum_allocation_mb: 128
+    yarn_scheduler_minimum_allocation_mb: 256
     hdfs_dfs_replication: 1
-    mapreduce_map_memory_mb: 256
+    mapreduce_map_memory_mb: 1024
     spark_executor_memory: 1g
     fs_default_name: spark-hadoop-master-0.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
-    mapreduce_reduce_memory_mb: 256
+    mapreduce_reduce_memory_mb: 1024
   repository_revision: master
   repository_url: https://github.com/maany/simple_spark_cluster_worker
   type: spark_hadoop_worker
@@ -243,19 +243,19 @@ lightweight_components:
     spark_history_fs_log_directory: spark-logs
     spark_event_log_enabled: true
     spark_event_log_dir: spark-logs
-    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_scheduler_maximum_allocation_mb: 3072
     spark_driver_memory: 1g
-    yarn_app_mapreduce_am_resource_mb: 512
-    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 1024
+    yarn_nodemanager_resource_memory_mb: 3072
     spark_yarn_am_memory: 1g
     spark_history_fs_update_interval: 30s
-    yarn_scheduler_minimum_allocation_mb: 128
+    yarn_scheduler_minimum_allocation_mb: 256
     hdfs_dfs_replication: 1
-    mapreduce_map_memory_mb: 256
+    mapreduce_map_memory_mb: 1024
     spark_executor_memory: 1g
     fs_default_name: spark-hadoop-master-0.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
-    mapreduce_reduce_memory_mb: 256
+    mapreduce_reduce_memory_mb: 1024
   repository_revision: master
   repository_url: https://github.com/maany/simple_spark_cluster_worker
   type: spark_hadoop_worker
@@ -270,19 +270,19 @@ lightweight_components:
     spark_history_fs_log_directory: spark-logs
     spark_event_log_enabled: true
     spark_event_log_dir: spark-logs
-    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_scheduler_maximum_allocation_mb: 3072
     spark_driver_memory: 1g
-    yarn_app_mapreduce_am_resource_mb: 512
-    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 1024
+    yarn_nodemanager_resource_memory_mb: 3072
     spark_yarn_am_memory: 1g
     spark_history_fs_update_interval: 30s
-    yarn_scheduler_minimum_allocation_mb: 128
+    yarn_scheduler_minimum_allocation_mb: 256
     hdfs_dfs_replication: 1
-    mapreduce_map_memory_mb: 256
+    mapreduce_map_memory_mb: 1024
     spark_executor_memory: 1g
     fs_default_name: spark-hadoop-master-0.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
-    mapreduce_reduce_memory_mb: 256
+    mapreduce_reduce_memory_mb: 1024
   repository_revision: master
   repository_url: https://github.com/maany/simple_spark_cluster_worker
   type: spark_hadoop_worker
@@ -297,19 +297,19 @@ lightweight_components:
     spark_history_fs_log_directory: spark-logs
     spark_event_log_enabled: true
     spark_event_log_dir: spark-logs
-    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_scheduler_maximum_allocation_mb: 3072
     spark_driver_memory: 1g
-    yarn_app_mapreduce_am_resource_mb: 512
-    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 1024
+    yarn_nodemanager_resource_memory_mb: 3072
     spark_yarn_am_memory: 1g
     spark_history_fs_update_interval: 30s
-    yarn_scheduler_minimum_allocation_mb: 128
+    yarn_scheduler_minimum_allocation_mb: 256
     hdfs_dfs_replication: 1
-    mapreduce_map_memory_mb: 256
+    mapreduce_map_memory_mb: 1024
     spark_executor_memory: 1g
     fs_default_name: spark-hadoop-master-0.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
-    mapreduce_reduce_memory_mb: 256
+    mapreduce_reduce_memory_mb: 1024
   repository_revision: master
   repository_url: https://github.com/maany/simple_spark_cluster_worker
   type: spark_hadoop_worker
@@ -324,19 +324,19 @@ lightweight_components:
     spark_history_fs_log_directory: spark-logs
     spark_event_log_enabled: true
     spark_event_log_dir: spark-logs
-    yarn_scheduler_maximum_allocation_mb: 1536
+    yarn_scheduler_maximum_allocation_mb: 3072
     spark_driver_memory: 1g
-    yarn_app_mapreduce_am_resource_mb: 512
-    yarn_nodemanager_resource_memory_mb: 1536
+    yarn_app_mapreduce_am_resource_mb: 1024
+    yarn_nodemanager_resource_memory_mb: 3072
     spark_yarn_am_memory: 1g
     spark_history_fs_update_interval: 30s
-    yarn_scheduler_minimum_allocation_mb: 128
+    yarn_scheduler_minimum_allocation_mb: 256
     hdfs_dfs_replication: 1
-    mapreduce_map_memory_mb: 256
+    mapreduce_map_memory_mb: 1024
     spark_executor_memory: 1g
     fs_default_name: spark-hadoop-master-0.cern.ch
     yarn_resource_manager_hostname: spark-hadoop-master-0.cern.ch
-    mapreduce_reduce_memory_mb: 256
+    mapreduce_reduce_memory_mb: 1024
   repository_revision: master
   repository_url: https://github.com/maany/simple_spark_cluster_worker
   type: spark_hadoop_worker
@@ -434,6 +434,7 @@ meta_info_spark-hadoop-master:
     ssh_server: true
     ssh_client: true
 default_group_dteam_name: dteam
+
 dns:
 - container_fqdn: spark-hadoop-master-0.cern.ch
   host_fqdn: spark-hadoop-master-0.cern.ch
