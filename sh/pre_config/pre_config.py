@@ -227,7 +227,8 @@ def get_run_script_env_content(data, execution_id):
     for dns_info in data['dns']:
         if dns_info['execution_id'] == int(execution_id):
             dns = dns_info
-        slaves.append("{host}:{ip}".format(host=dns_info['container_fqdn'], ip=dns_info['container_ip']))
+        else:
+            slaves.append("{host}:{ip}".format(host=dns_info['container_fqdn'], ip=dns_info['container_ip']))
     env = ["export CONTAINER_FQDN={host}".format(host=dns['container_fqdn']),
            "export CONTAINER_IP={ip}".format(ip=dns['container_ip']),
            "export PORTS=('8042' '19888' '42252')",
