@@ -221,6 +221,19 @@ def get_spark_defaults_conf_content(data, execution_id):
     config.append("spark.history.ui.port {value}".format(value=str("18080").lower()))
     return "\n".join(config)
 
+def get_run_script_env_content(data, execution_id):
+    slaves = []
+    dns = None
+    for dns_info in data['dns']:
+        if dns_info['execution_id'] == int(execution_id):
+            dns = dns_info
+        slaves.append("{host}:{ip}".format(host=dns_info['container_fqdn'], ip=dns_info['container_ip']))
+    env = ["export CONTAINER_FQDN={host}".format(host=dns['container_fqdn']),
+           "export CONTAINER_IP={ip}".format(ip=dns['container_ip']),
+           "export PORTS=('8042' '19888' '42252')",
+           "export NODES=({nodes})".format(nodes=" ".join(slaves)),
+           ]
+    return '\n'.join(env)
 
 if __name__ == "__main__":
     args = parse_args()
@@ -252,6 +265,9 @@ if __name__ == "__main__":
 
     with open("{output_dir}/spark-defaults.conf".format(output_dir=output_dir), 'w') as slaves:
         slaves.write(get_spark_defaults_conf_content(data, execution_id))
+
+    with open("{output_dir}/run_script.env".format(output_dir=output_dir), 'w') as run_script_env:
+        run_script_env.write(get_run_script_env_content(data, execution_id))
 
     # with open("{output_dir}/known_hosts".format(output_dir=output_dir), 'w') as known_hosts:
     #     slaves.write(get_known_hosts_content(data, execution_id))
