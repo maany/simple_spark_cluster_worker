@@ -79,8 +79,7 @@ echo $DOCKER_RUN
 echo "Starting container..."
 $DOCKER_RUN
 
-echo "Please proceed with the init event by hand. Merci!"
 ### INIT EVENT ######
-#sudo docker exec -t simple_spark_hadoop_worker /etc/simple_grid/config/init.sh
-#sudo docker exec -it simple_spark_hadoop_worker bash
+sudo docker exec -t simple_spark_hadoop_worker /etc/simple_grid/config/init.sh
+sudo docker exec -it simple_spark_hadoop_worker bash
 #### POST INIT HOOKS ######
